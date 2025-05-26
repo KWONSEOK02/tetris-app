@@ -2,9 +2,9 @@ class TetrisGame {
     constructor() {
         this.canvas = document.getElementById('game-canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.blockSize = 30; // 각 블록의 크기
-        this.cols = this.canvas.width / this.blockSize;
-        this.rows = this.canvas.height / this.blockSize;
+        this.blockSize = 60; // 각 블록의 크기를 60px로 변경 (600px / 10칸 = 60px)
+        this.cols = this.canvas.width / this.blockSize;  // 10칸
+        this.rows = this.canvas.height / this.blockSize; // 15칸
         
         // 다음 블록 미리보기 캔버스 설정
         this.nextPieceDisplay = document.getElementById('next-piece-display');
@@ -92,7 +92,7 @@ class TetrisGame {
             case 'ArrowRight': // 오른쪽 화살표
                 this.moveRight();
                 break;
-            case 'KeyR': // R 키
+            case 'ArrowUp': // 위쪽 화살표
                 this.rotate();
                 break;
             case 'ArrowDown': // 아래 화살표
@@ -309,7 +309,29 @@ class TetrisGame {
                 }
             }
         }
+        this.clearLines(); // 줄 제거 체크
         this.createNewPiece();
+    }
+
+    // 완성된 줄 제거
+    clearLines() {
+        let linesCleared = 0;
+
+        for (let y = this.rows - 1; y >= 0; y--) {
+            const isFull = this.board[y].every(cell => cell !== 0);
+            
+            if (isFull) {
+                this.board.splice(y, 1); // 해당 줄 제거
+                this.board.unshift(Array(this.cols).fill(0)); // 맨 위에 빈 줄 추가
+                linesCleared++;
+                y++; // 같은 줄 다시 검사 (줄 내려왔으므로)
+            }
+        }
+
+        if (linesCleared > 0) {
+            // 필요 시 점수 계산 등
+            console.log(`${linesCleared}줄 제거!`);
+        }
     }
 
     // 아래로 이동
@@ -340,6 +362,9 @@ class TetrisGame {
         // 고정된 블록 그리기
         this.drawBoard();
         
+        // 고스트 블록 그리기
+        this.drawGhostPiece();
+        
         // 현재 떨어지는 조각 그리기
         this.drawCurrentPiece();
     }
@@ -349,7 +374,7 @@ class TetrisGame {
         for(let y = 0; y < this.rows; y++) {
             for(let x = 0; x < this.cols; x++) {
                 if(this.board[y][x]) {
-                    this.drawBlock(x, y, this.board[y][x]);
+                    this.drawBlock(x, y, this.board[y][x], false);
                 }
             }
         }
@@ -363,22 +388,33 @@ class TetrisGame {
         for(let y = 0; y < shape.length; y++) {
             for(let x = 0; x < shape[y].length; x++) {
                 if(shape[y][x]) {
-                    this.drawBlock(this.currentX + x, this.currentY + y, color);
+                    this.drawBlock(this.currentX + x, this.currentY + y, color, false);
                 }
             }
         }
     }
 
     // 단일 블록 그리기
-    drawBlock(x, y, color) {
+    drawBlock(x, y, color, isGhost = false) {
         if(y < 0) return; // 화면 위의 블록은 그리지 않음
         
         this.ctx.fillStyle = color;
+        
+        if (isGhost) {
+            // 고스트 블록은 반투명하게 처리
+            this.ctx.globalAlpha = 0.3;
+        }
+
         this.ctx.fillRect(x * this.blockSize, y * this.blockSize, this.blockSize, this.blockSize);
         
         // 블록 테두리
-        this.ctx.strokeStyle = '#fff';
+        this.ctx.strokeStyle = isGhost ? color : '#fff';
         this.ctx.strokeRect(x * this.blockSize, y * this.blockSize, this.blockSize, this.blockSize);
+        
+        // 투명도 초기화
+        if (isGhost) {
+            this.ctx.globalAlpha = 1.0;
+        }
     }
 
     // 즉시 하강
@@ -399,6 +435,34 @@ class TetrisGame {
         
         // 블록 고정
         this.freezePiece();
+    }
+
+    // 고스트 블록의 Y 위치 계산
+    getGhostY() {
+        const shape = this.getCurrentShape();
+        let ghostY = this.currentY;
+
+        // 충돌이 발생할 때까지 아래로 이동
+        while (!this.isCollision(this.currentX, ghostY + 1, shape)) {
+            ghostY++;
+        }
+
+        return ghostY;
+    }
+
+    // 고스트 블록 그리기
+    drawGhostPiece() {
+        const shape = this.getCurrentShape();
+        const color = tetrominoes[this.currentPiece].color;
+        const ghostY = this.getGhostY();
+
+        for(let y = 0; y < shape.length; y++) {
+            for(let x = 0; x < shape[y].length; x++) {
+                if(shape[y][x]) {
+                    this.drawBlock(this.currentX + x, ghostY + y, color, true);
+                }
+            }
+        }
     }
 }
 
