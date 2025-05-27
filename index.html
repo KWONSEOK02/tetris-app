@@ -10,14 +10,19 @@
     <div class="game-container">
         <canvas id="game-canvas" width="600" height="900"></canvas>
         <div class="game-info">
-            <div class="score-board">
-                <h2>점수</h2>
-                <div class="score">0</div>
-            </div>
             <div class="next-piece">
                 <h2>다음 블록</h2>
                 <canvas id="next-piece-display" width="100" height="100"></canvas>
             </div>
+            <div class="level-info">
+                <h2>레벨</h2>
+                <canvas id="level-display" width="100" height="50"></canvas>
+            </div>
+            <div class="score-board">
+                <h2>점수</h2>
+                <canvas id="score-display" width="200" height="50"></canvas>
+            </div>
+            <button id="start-button" class="start-button">게임 시작</button>
             <div class="controls">
                 <h2>조작 방법</h2>
                 <p>← → : 좌우 이동</p>
@@ -25,10 +30,9 @@
                 <p>↓ : 빠른 하강</p>
                 <p>스페이스바 : 즉시 하강</p>
             </div>
-            <button id="start-button" class="start-button">게임 시작</button>
         </div>
     </div>
     <script src="main.js"></script>
-    <script src="game.js"></script>
+    <script type="module" src="game.js"></script>
 </body>
 </html> 

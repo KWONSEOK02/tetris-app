@@ -1,3 +1,5 @@
+import { ScoreManager } from './scoreManager.js';
+
 class TetrisGame {
     constructor() {
         this.canvas = document.getElementById('game-canvas');
@@ -6,11 +8,28 @@ class TetrisGame {
         this.cols = this.canvas.width / this.blockSize;  // 10칸
         this.rows = this.canvas.height / this.blockSize; // 15칸
         
+        // 점수 표시 캔버스 설정
+        this.scoreCanvas = document.getElementById('score-display');
+        this.scoreCtx = this.scoreCanvas.getContext('2d');
+        
+        // 레벨 표시 캔버스 설정
+        this.levelCanvas = document.getElementById('level-display');
+        this.levelCtx = this.levelCanvas.getContext('2d');
+        
         // 다음 블록 미리보기 캔버스 설정
         this.nextPieceDisplay = document.getElementById('next-piece-display');
         this.nextPieceCtx = this.nextPieceDisplay.getContext('2d');
         this.nextPieceDisplay.width = 100;
         this.nextPieceDisplay.height = 100;
+        
+        // ScoreManager 초기화
+        this.scoreManager = new ScoreManager(
+            (score) => this.updateScoreDisplay(score),
+            (level) => {
+                this.updateLevelDisplay(level);
+                this.updateGameSpeed();
+            }
+        );
         
         // 게임 상태
         this.currentPiece = null;
@@ -34,10 +53,38 @@ class TetrisGame {
         this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
+    // 점수 표시 업데이트
+    updateScoreDisplay(score) {
+        const ctx = this.scoreCtx;
+        ctx.clearRect(0, 0, this.scoreCanvas.width, this.scoreCanvas.height);
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, this.scoreCanvas.width, this.scoreCanvas.height);
+        ctx.fillStyle = '#fff';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(score.toString(), this.scoreCanvas.width / 2, this.scoreCanvas.height / 2);
+    }
+
+    // 레벨 표시 업데이트
+    updateLevelDisplay(level) {
+        const ctx = this.levelCtx;
+        ctx.clearRect(0, 0, this.levelCanvas.width, this.levelCanvas.height);
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, this.levelCanvas.width, this.levelCanvas.height);
+        ctx.fillStyle = '#fff';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(level.toString(), this.levelCanvas.width / 2, this.levelCanvas.height / 2);
+    }
+
     init() {
         // 캔버스 초기화
         this.ctx.scale(1, 1);
         this.drawNextPiece();
+        this.updateScoreDisplay(0);
+        this.updateLevelDisplay(1);
 
         // 시작 버튼 이벤트 리스너
         const startButton = document.getElementById('start-button');
@@ -49,6 +96,7 @@ class TetrisGame {
         
         this.isPlaying = true;
         this.board = Array(this.rows).fill().map(() => Array(this.cols).fill(0));
+        this.scoreManager.reset();
         
         // 다음 블록 설정하고 첫 블록 생성
         this.nextPiece = this.getRandomPiece();
@@ -120,7 +168,7 @@ class TetrisGame {
         if (this.gameInterval) return;
         this.gameInterval = setInterval(() => {
             this.moveDown();
-        }, 500);
+        }, this.scoreManager.getLevelSpeed());
     }
 
     // 중력 정지
@@ -329,8 +377,7 @@ class TetrisGame {
         }
 
         if (linesCleared > 0) {
-            // 필요 시 점수 계산 등
-            console.log(`${linesCleared}줄 제거!`);
+            this.scoreManager.addLinesCleared(linesCleared);
         }
     }
 
@@ -462,6 +509,14 @@ class TetrisGame {
                     this.drawBlock(this.currentX + x, ghostY + y, color, true);
                 }
             }
+        }
+    }
+
+    // 레벨 변경 시 속도 업데이트
+    updateGameSpeed() {
+        if (this.isPlaying) {
+            this.stopGravity();
+            this.startGravity();
         }
     }
 }
