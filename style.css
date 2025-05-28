@@ -11,27 +11,45 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    padding: 10px;
 }
 
 .game-container {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .game-container {
+        flex-direction: row;
+    }
 }
 
 #game-canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 2/3;
     background-color: #000;
     border: 2px solid #333;
+    margin: 0 auto;
 }
 
 .game-info {
     padding: 20px;
     background-color: #f8f8f8;
     border-radius: 5px;
-    width: 200px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .score-board {
@@ -39,13 +57,13 @@ body {
 }
 
 .score-board h2 {
-    font-size: 1.2em;
+    font-size: clamp(1rem, 3vw, 1.2em);
     color: #333;
     margin-bottom: 10px;
 }
 
 .score {
-    font-size: 2em;
+    font-size: clamp(1.5rem, 5vw, 2em);
     color: #e74c3c;
     font-weight: bold;
 }
@@ -55,17 +73,18 @@ body {
 }
 
 .next-piece h2 {
-    font-size: 1.2em;
+    font-size: clamp(1rem, 3vw, 1.2em);
     color: #333;
     margin-bottom: 10px;
 }
 
 .next-piece-display {
-    width: 120px;
-    height: 120px;
+    width: 100%;
+    max-width: 120px;
+    aspect-ratio: 1/1;
     background-color: #000;
     border: 2px solid #333;
-    margin: 10px 0;
+    margin: 10px auto;
 }
 
 .controls {
@@ -74,7 +93,7 @@ body {
 }
 
 .controls h2 {
-    font-size: 1.2em;
+    font-size: clamp(1rem, 3vw, 1.2em);
     color: #333;
     margin-bottom: 10px;
 }
@@ -82,13 +101,13 @@ body {
 .controls p {
     margin: 5px 0;
     color: #666;
-    font-size: 0.9em;
+    font-size: clamp(0.8rem, 2.5vw, 0.9em);
 }
 
 .start-button {
     width: 100%;
-    padding: 12px;
-    font-size: 1.2em;
+    padding: clamp(8px, 2vw, 12px);
+    font-size: clamp(1rem, 3vw, 1.2em);
     background-color: #2ecc71;
     color: white;
     border: none;
@@ -115,25 +134,28 @@ body {
 
 .game-buttons {
     margin: 20px 0;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
 }
 
 .direction-buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: clamp(5px, 1vw, 10px);
+    margin-bottom: clamp(10px, 2vw, 20px);
 }
 
 .horizontal-buttons {
     display: flex;
-    gap: 5px;
+    gap: clamp(5px, 1vw, 10px);
 }
 
 .game-button {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+    width: clamp(40px, 10vw, 50px);
+    height: clamp(40px, 10vw, 50px);
+    font-size: clamp(18px, 5vw, 24px);
     background-color: #34495e;
     color: white;
     border: none;
@@ -155,7 +177,7 @@ body {
 
 .space-button {
     width: 100%;
-    font-size: 18px;
-    margin-top: 10px;
-    height: 40px;
+    font-size: clamp(14px, 4vw, 18px);
+    margin-top: clamp(8px, 2vw, 10px);
+    height: clamp(32px, 8vw, 40px);
 } 

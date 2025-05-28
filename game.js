@@ -4,9 +4,9 @@ class TetrisGame {
     constructor() {
         this.canvas = document.getElementById('game-canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.blockSize = 40; // 각 블록의 크기를 40px로 변경 (400px / 10칸 = 40px)
-        this.cols = this.canvas.width / this.blockSize;  // 10칸
-        this.rows = this.canvas.height / this.blockSize; // 20칸
+        this.cols = 10;  // 게임 보드의 열 수
+        this.rows = 20;  // 게임 보드의 행 수
+        this.blockSize = this.canvas.width / this.cols; // 블록 크기를 화면 너비에 맞게 자동 조정
         
         // 점수 표시 캔버스 설정
         this.scoreCanvas = document.getElementById('score-display');
