@@ -85,12 +85,16 @@ class TetrisGame {
         this.drawNextPiece();
         this.updateScoreDisplay(0);
         this.updateLevelDisplay(1);
+        this.setupStartButton();
+        this.setupControlButtons();
+    }
 
-        // 시작 버튼 이벤트 리스너
+    setupStartButton() {
         const startButton = document.getElementById('start-button');
         startButton.addEventListener('click', () => this.startGame());
+    }
 
-        // 게임 컨트롤 버튼 이벤트 리스너
+    setupControlButtons() {
         const leftButton = document.getElementById('left-button');
         const rightButton = document.getElementById('right-button');
         const rotateButton = document.getElementById('rotate-button');
