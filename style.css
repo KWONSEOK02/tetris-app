@@ -22,8 +22,8 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     min-height: 100vh;
-    gap: 20px;
-    padding: 20px;
+    gap: clamp(10px, 2vh, 20px);
+    padding: clamp(10px, 2vh, 20px);
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -35,84 +35,95 @@ body {
 @media (min-width: 768px) {
     .game-container {
         flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
     }
 }
 
 #game-canvas {
     width: 100%;
-    max-width: 600px;
-    aspect-ratio: 9/16;
-    max-height: 60vh;
+    max-width: min(500px, 70vh);
+    aspect-ratio: 2/3;
+    max-height: 70vh;
     background-color: #000;
     border: 2px solid #333;
     margin: 0 auto;
 }
 
 .game-info {
-    padding: 20px;
+    padding: clamp(10px, 2vh, 20px);
     background-color: #f8f8f8;
     border-radius: 5px;
     width: 100%;
     max-width: 300px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 1vh, 10px);
+    max-height: 25vh;
+}
+
+@media (min-width: 768px) {
+    .game-info {
+        max-height: 70vh;
+    }
 }
 
 .score-board {
-    margin-bottom: 20px;
+    margin-bottom: clamp(5px, 1vh, 10px);
 }
 
 .score-board h2 {
-    font-size: clamp(1rem, 3vw, 1.2em);
+    font-size: clamp(0.9rem, 2.5vw, 1.2em);
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .score {
-    font-size: clamp(1.5rem, 5vw, 2em);
+    font-size: clamp(1.2rem, 4vw, 2em);
     color: #e74c3c;
     font-weight: bold;
 }
 
 .next-piece {
-    margin-bottom: 20px;
+    margin-bottom: clamp(5px, 1vh, 10px);
 }
 
 .next-piece h2 {
-    font-size: clamp(1rem, 3vw, 1.2em);
+    font-size: clamp(0.9rem, 2.5vw, 1.2em);
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .next-piece-display {
-    width: 100%;
-    max-width: 120px;
+    width: clamp(60px, 15vw, 120px);
     aspect-ratio: 1/1;
     background-color: #000;
     border: 2px solid #333;
-    margin: 10px auto;
+    margin: 5px auto;
 }
 
 .controls {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: clamp(5px, 1vh, 10px);
+    margin-bottom: clamp(5px, 1vh, 10px);
 }
 
 .controls h2 {
-    font-size: clamp(1rem, 3vw, 1.2em);
+    font-size: clamp(0.9rem, 2.5vw, 1.2em);
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .controls p {
-    margin: 5px 0;
+    margin: 2px 0;
     color: #666;
-    font-size: clamp(0.8rem, 2.5vw, 0.9em);
+    font-size: clamp(0.7rem, 2vw, 0.9em);
 }
 
 .start-button {
     width: 100%;
-    padding: clamp(8px, 2vw, 12px);
-    font-size: clamp(1rem, 3vw, 1.2em);
+    padding: clamp(6px, 1.5vh, 12px);
+    font-size: clamp(0.9rem, 2.5vw, 1.2em);
     background-color: #2ecc71;
     color: white;
     border: none;
@@ -138,29 +149,38 @@ body {
 }
 
 .game-buttons {
-    margin: 20px 0;
     width: 100%;
     max-width: 300px;
-    margin: 20px auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 1vh, 10px);
+    max-height: 25vh;
+}
+
+@media (min-width: 768px) {
+    .game-buttons {
+        max-height: none;
+    }
 }
 
 .direction-buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(5px, 1vw, 10px);
-    margin-bottom: clamp(10px, 2vw, 20px);
+    gap: clamp(3px, 0.8vh, 8px);
+    margin-bottom: clamp(5px, 1vh, 10px);
 }
 
 .horizontal-buttons {
     display: flex;
-    gap: clamp(5px, 1vw, 10px);
+    gap: clamp(3px, 0.8vh, 8px);
 }
 
 .game-button {
-    width: clamp(40px, 10vw, 50px);
-    height: clamp(40px, 10vw, 50px);
-    font-size: clamp(18px, 5vw, 24px);
+    width: clamp(35px, 9vw, 50px);
+    height: clamp(35px, 9vw, 50px);
+    font-size: clamp(16px, 4vw, 24px);
     background-color: #34495e;
     color: white;
     border: none;
@@ -182,7 +202,7 @@ body {
 
 .space-button {
     width: 100%;
-    font-size: clamp(14px, 4vw, 18px);
-    margin-top: clamp(8px, 2vw, 10px);
-    height: clamp(32px, 8vw, 40px);
+    font-size: clamp(12px, 3vw, 18px);
+    margin-top: clamp(5px, 1vh, 8px);
+    height: clamp(28px, 7vw, 40px);
 } 
