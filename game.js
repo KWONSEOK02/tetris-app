@@ -89,6 +89,41 @@ class TetrisGame {
         // 시작 버튼 이벤트 리스너
         const startButton = document.getElementById('start-button');
         startButton.addEventListener('click', () => this.startGame());
+
+        // 게임 컨트롤 버튼 이벤트 리스너
+        const leftButton = document.getElementById('left-button');
+        const rightButton = document.getElementById('right-button');
+        const rotateButton = document.getElementById('rotate-button');
+        const downButton = document.getElementById('down-button');
+        const spaceButton = document.getElementById('space-button');
+
+        leftButton.addEventListener('click', () => {
+            if (this.isPlaying) this.moveLeft();
+        });
+
+        rightButton.addEventListener('click', () => {
+            if (this.isPlaying) this.moveRight();
+        });
+
+        rotateButton.addEventListener('click', () => {
+            if (this.isPlaying) this.rotate();
+        });
+
+        downButton.addEventListener('mousedown', () => {
+            if (this.isPlaying) this.fastDrop();
+        });
+
+        downButton.addEventListener('mouseup', () => {
+            if (this.isPlaying) this.stopFastDrop();
+        });
+
+        downButton.addEventListener('mouseleave', () => {
+            if (this.isPlaying) this.stopFastDrop();
+        });
+
+        spaceButton.addEventListener('click', () => {
+            if (this.isPlaying) this.instantDrop();
+        });
     }
 
     startGame() {
