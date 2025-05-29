@@ -22,7 +22,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 20px;
+    gap: 5px;
     padding: clamp(10px, 2vh, 20px);
     background-color: white;
     border-radius: 10px;
@@ -42,7 +42,7 @@ body {
     width: 100%;
     max-width: 550px;
     aspect-ratio: 2/3;
-    max-height: 70vh;
+    max-height: 80vh;
     background-color: #000;
     border: 2px solid #333;
     margin: 0 auto;
@@ -58,24 +58,58 @@ body {
     display: flex;
     flex-direction: column;
     gap: clamp(3px, 0.8vh, 8px);
-    max-height: 25vh;
 }
 
 @media (min-width: 768px) {
     .game-info {
         max-width: 300px;
-        max-height: 70vh;
     }
 }
 
-.score-board {
-    margin-bottom: clamp(5px, 1vh, 10px);
+.level-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(1.5px, 0.4vh, 4px);
+    width: 100%;
 }
 
-.score-board h2 {
+.level-info h2, .score-board h2 {
     font-size: clamp(0.8rem, 2vw, 1.1em);
     color: #333;
-    margin-bottom: 3px;
+    margin-bottom: 1px;
+}
+
+.score-board {
+    margin-bottom: clamp(1.5px, 0.4vh, 4px);
+}
+
+.level-score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: clamp(1.5px, 0.4vh, 4px);
+    gap: 5px;
+}
+
+.level-display-container, .score-display-container {
+    flex: 1;
+    background-color: #000080;
+    padding: 4px 8px;
+    border-radius: 9px;
+    color: white;
+}
+
+.level-display-container h2, .score-display-container h2 {
+    font-size: clamp(0.7rem, 1.8vw, 0.9em);
+    color: #99a9ff;
+    margin-bottom: 2px;
+}
+
+#level-display, #score-display {
+    width: 100%;
+    height: 30px;
 }
 
 .score {
@@ -85,13 +119,13 @@ body {
 }
 
 .next-piece {
-    margin-bottom: clamp(5px, 1vh, 10px);
+    margin-bottom: clamp(1.5px, 0.4vh, 4px);
 }
 
 .next-piece h2 {
     font-size: clamp(0.8rem, 2vw, 1.1em);
     color: #333;
-    margin-bottom: 3px;
+    margin-bottom: 1px;
 }
 
 .next-piece-display {
@@ -126,9 +160,12 @@ body {
     background-color: #2ecc71;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 9px;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .start-button:hover {
@@ -154,13 +191,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: clamp(3px, 0.8vh, 8px);
-    max-height: 25vh;
 }
 
 @media (min-width: 768px) {
     .game-buttons {
         max-width: 300px;
-        max-height: none;
     }
 }
 
@@ -184,7 +219,7 @@ body {
     background-color: #34495e;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 9px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -204,5 +239,6 @@ body {
     width: 100%;
     font-size: clamp(11px, 2.8vw, 16px);
     margin-top: clamp(3px, 0.8vh, 6px);
-    height: clamp(24px, 6vw, 36px);
+    height: 40px;
+    border-radius: 9px;
 } 
