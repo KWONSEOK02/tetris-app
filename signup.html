@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 테트리스 게임</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <h1>회원가입</h1>
+            <form class="signup-form" id="signupForm">
+                <div class="input-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" placeholder="이름을 입력하세요" required>
+                </div>
+                <div class="input-group">
+                    <label for="username">닉네임</label>
+                    <input type="text" id="username" placeholder="사용할 닉네임을 입력하세요" required>
+                    <small class="input-hint">다른 사용자에게 표시될 이름입니다</small>
+                </div>
+                <div class="input-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" placeholder="이메일을 입력하세요" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                <div class="input-group">
+                    <label for="password-confirm">비밀번호 확인</label>
+                    <input type="password" id="password-confirm" placeholder="비밀번호를 다시 입력하세요" required>
+                    <small class="error-message" id="passwordError"></small>
+                </div>
+                <button type="submit" class="signup-submit-btn">가입하기</button>
+                <div class="login-link">
+                    <p>이미 계정이 있으신가요? <button type="button" class="login-btn" onclick="location.href='login.html'">로그인</button></p>
+                </div>
+            </form>
+            <button class="back-btn" onclick="location.href='login.html'">
+                <i class="fas fa-arrow-left"></i> 돌아가기
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js" type="module"></script>
+    
+    <!-- Custom JS -->
+    <script src="signup.js" type="module"></script>
+</body>
+</html> 

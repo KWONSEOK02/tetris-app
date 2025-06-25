@@ -1,4 +1,6 @@
 import { ScoreManager } from './scoreManager.js';
+import { firebaseApp, getDatabase } from './firebase.js';
+import { ref, push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
 class TetrisGame {
     constructor() {
@@ -157,6 +159,8 @@ class TetrisGame {
         this.isPlaying = false;
         this.stopGravity();
         this.stopFastDrop();
+        // 점수 저장
+        saveScore(this.scoreManager.score);
         
         // 키보드 이벤트 리스너 제거
         document.removeEventListener('keydown', this.handleKeyDown);
@@ -558,6 +562,15 @@ class TetrisGame {
             this.startGravity();
         }
     }
+}
+
+function saveScore(score) {
+    const db = getDatabase();
+    const scoreRef = ref(db, 'scores');
+    push(scoreRef, {
+        score: score,
+        timestamp: Date.now()
+    });
 }
 
 // 게임 시작

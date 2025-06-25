@@ -237,8 +237,22 @@ body {
 
 .space-button {
     width: 100%;
-    font-size: clamp(11px, 2.8vw, 16px);
-    margin-top: clamp(3px, 0.8vh, 6px);
-    height: 40px;
-    border-radius: 9px;
+    margin-top: 10px;
+}
+
+.logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
 } 
