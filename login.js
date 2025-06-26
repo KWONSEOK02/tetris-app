@@ -14,6 +14,9 @@ const app = firebaseApp;
 const auth = getAuth(app);
 const database = getDatabase(app);
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+    prompt: 'select_account'
+});   // 구글 계정 선택 창 항상 뜨게 하기
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
