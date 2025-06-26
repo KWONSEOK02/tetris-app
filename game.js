@@ -88,7 +88,7 @@ class TetrisGame {
         this.updateScoreDisplay(0);
         this.updateLevelDisplay(1);
         this.setupStartButton();
-        this.setupControlButtons();
+        // this.setupControlButtons();
     }
 
     setupStartButton() {
@@ -96,6 +96,7 @@ class TetrisGame {
         startButton.addEventListener('click', () => this.startGame());
     }
 
+    /*
     setupControlButtons() {
         const leftButton = document.getElementById('left-button');
         const rightButton = document.getElementById('right-button');
@@ -131,6 +132,7 @@ class TetrisGame {
             if (this.isPlaying) this.instantDrop();
         });
     }
+    */
 
     startGame() {
         if (this.isPlaying) return;

@@ -16,7 +16,7 @@ const database = getDatabase(app);
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
     prompt: 'select_account'
-});   // 구글 계정 선택 창 항상 뜨게 하기
+});   // prompt: 'select_account'는 Google OAuth에 "항상 계정 선택 화면을 보여줘"라고 지시하는 명령
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');

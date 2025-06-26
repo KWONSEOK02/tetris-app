@@ -25,6 +25,7 @@
                 </div>
             </div>
             <button id="start-button" class="start-button">게임 시작</button>
+            <!--
             <div class="game-buttons">
                 <div class="direction-buttons">
                     <button id="rotate-button" class="game-button">↑</button>
@@ -36,6 +37,7 @@
                 </div>
                 <button id="space-button" class="game-button space-button">Space</button>
             </div>
+            -->
             <div class="controls">
                 <h2>조작 방법</h2>
                 <p>← → : 좌우 이동</p>
@@ -49,11 +51,15 @@
                     <!-- 여기에 Top5 점수가 동적으로 표시됩니다 -->
                 </div>
             </div>
-            <button id="logout-button" class="logout-button">로그아웃</button>
+            <div class="user-logout-row">
+                <div id="nickname-placeholder" style="width: 100px;"></div>
+                <button id="logout-button" class="logout-button">로그아웃</button>
+            </div>
         </div>
     </div>
     <script src="main.js"></script>
     <script type="module" src="game.js"></script>
     <script type="module" src="auth-check.js"></script>
+    <script type="module" src="user-info.js"></script>
 </body>
 </html> 
