@@ -23,10 +23,11 @@ onAuthStateChanged(auth, async (user) => {
         userNicknameDiv.style.fontSize = '16px';
         userNicknameDiv.style.display = 'flex';
         userNicknameDiv.style.alignItems = 'center';
+        //userNicknameDiv.style.justifyContent = 'flex-start'; // (가로 왼쪽 정렬) // 임시
 
         const rowDiv = document.querySelector('.user-logout-row');
         if (rowDiv) {
             rowDiv.insertBefore(userNicknameDiv, rowDiv.querySelector('button'));
         }
     }
-}); 
+});

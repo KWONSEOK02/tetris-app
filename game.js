@@ -1,6 +1,41 @@
 import { ScoreManager } from './scoreManager.js';
 import { firebaseApp, getDatabase } from './firebase.js';
 import { ref, push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+import { saveScore, getTopScores } from './firebase-db.js';
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+import { get as dbGet } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
+let currentNickname = '사용자';
+
+const auth = getAuth(firebaseApp);
+const db = getDatabase(firebaseApp);
+
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const userRef = ref(db, `users/${user.uid}`);
+        const snapshot = await dbGet(userRef);
+        const userData = snapshot.exists() ? snapshot.val() : null;
+        currentNickname = userData?.username || user.displayName || '사용자';
+    }
+});
+
+async function updateTopScores() {
+    const scores = await getTopScores(5);
+    const scoresListDiv = document.getElementById('top-scores-list');
+    
+    // 이전 점수 초기화
+    scoresListDiv.innerHTML = '';
+    
+    if (scores.length > 0) {
+        scores.forEach((item, index) => {
+            const scoreDiv = document.createElement('div');
+            scoreDiv.textContent = `${index + 1}. ${item.nickname || '익명'} - ${item.score}`;
+            scoresListDiv.appendChild(scoreDiv);
+        });
+    } else {
+        scoresListDiv.textContent = '아직 등록된 점수가 없습니다.';
+    }
+}
 
 class TetrisGame {
     constructor() {
@@ -88,7 +123,7 @@ class TetrisGame {
         this.updateScoreDisplay(0);
         this.updateLevelDisplay(1);
         this.setupStartButton();
-        // this.setupControlButtons();
+        updateTopScores(); // 게임 시작 시 Top5 점수 표시
     }
 
     setupStartButton() {
@@ -162,7 +197,9 @@ class TetrisGame {
         this.stopGravity();
         this.stopFastDrop();
         // 점수 저장
-        saveScore(this.scoreManager.score);
+        saveScore(this.scoreManager.score, currentNickname).then(() => {
+            updateTopScores(); // 점수 저장 후 Top5 점수 갱신
+        });
         
         // 키보드 이벤트 리스너 제거
         document.removeEventListener('keydown', this.handleKeyDown);
@@ -564,15 +601,6 @@ class TetrisGame {
             this.startGravity();
         }
     }
-}
-
-function saveScore(score) {
-    const db = getDatabase();
-    const scoreRef = ref(db, 'scores');
-    push(scoreRef, {
-        score: score,
-        timestamp: Date.now()
-    });
 }
 
 // 게임 시작

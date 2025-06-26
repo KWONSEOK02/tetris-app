@@ -262,7 +262,18 @@ body {
 .user-logout-row {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-top: 20px;
     gap: 8px;
+}
+
+#nickname-placeholder {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #333;
 } 
