@@ -22,7 +22,6 @@ onAuthStateChanged(auth, async (user) => {
 async function updateTopScores() {
     const scores = await getTopScores(5);
     const scoresListDiv = document.getElementById('top-scores-list');
-    
     // 이전 점수 초기화
     scoresListDiv.innerHTML = '';
     
@@ -606,4 +605,5 @@ class TetrisGame {
 // 게임 시작
 document.addEventListener('DOMContentLoaded', () => {
     const game = new TetrisGame();
+    updateTopScores(); // 페이지 로드시 점수판 바로 표시
 }); 
