@@ -199,11 +199,11 @@ class TetrisGame {
         saveScore(this.scoreManager.score, currentNickname).then(() => {
             updateTopScores(); // 점수 저장 후 Top5 점수 갱신
         });
-        
+        // 점수 표시 0점으로 초기화
+        this.updateScoreDisplay(0);
         // 키보드 이벤트 리스너 제거
         document.removeEventListener('keydown', this.handleKeyDown);
         document.removeEventListener('keyup', this.handleKeyUp);
-        
         // 버튼 초기화
         const startButton = document.getElementById('start-button');
         startButton.textContent = '게임 시작';
